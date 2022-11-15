@@ -64,9 +64,9 @@ export default function SingInForm() {
   const password = watch('password');
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} noValidate className="sign-in-form">
-      <p className="sign-in-form__title">Create Account</p>
-      <label htmlFor="first_name" className="sign-in-form__label">
+    <form onSubmit={handleSubmit(onSubmit)} noValidate className="sign-up-form">
+      <p className="sign-up-form__title">Create Account</p>
+      <label htmlFor="first_name" className="sign-up-form__label">
         First Name:
         <input
           type="text"
@@ -78,10 +78,10 @@ export default function SingInForm() {
       </label>
 
       {errors.first_name ? (
-        <p className="sign-in-form__error">{`${errors.first_name.message}`}</p>
+        <p className="sign-up-form__error">{`${errors.first_name.message}`}</p>
       ) : null}
 
-      <label htmlFor="last_name" className="sign-in-form__label">
+      <label htmlFor="last_name" className="sign-up-form__label">
         Last Name:
         <input
           type="text"
@@ -93,10 +93,10 @@ export default function SingInForm() {
       </label>
 
       {errors.last_name ? (
-        <p className="sign-in-form__error">{`${errors.last_name.message}`}</p>
+        <p className="sign-up-form__error">{`${errors.last_name.message}`}</p>
       ) : null}
 
-      <label htmlFor="username" className="sign-in-form__label">
+      <label htmlFor="username" className="sign-up-form__label">
         Email:
         <input
           type="email"
@@ -112,10 +112,10 @@ export default function SingInForm() {
       </label>
 
       {errors.username ? (
-        <p className="sign-in-form__error">{`${errors.username.message}`}</p>
+        <p className="sign-up-form__error">{`${errors.username.message}`}</p>
       ) : null}
 
-      <label htmlFor="password" className="sign-in-form__label">
+      <label htmlFor="password" className="sign-up-form__label">
         Password:
         <input
           type="password"
@@ -131,10 +131,10 @@ export default function SingInForm() {
       </label>
 
       {errors.password ? (
-        <p className="sign-in-form__error">{`${errors.password.message}`}</p>
+        <p className="sign-up-form__error">{`${errors.password.message}`}</p>
       ) : null}
 
-      <label htmlFor="confirm_password" className="sign-in-form__label">
+      <label htmlFor="confirm_password" className="sign-up-form__label">
         Confirm Password:
         <input
           type="password"
@@ -148,18 +148,18 @@ export default function SingInForm() {
 
       {watch('confirm_password') !== watch('password') &&
       getValues('confirm_password') ? (
-        <p className="sign-in-form__error">
+        <p className="sign-up-form__error">
           Password and Confirm Password fields should match
         </p>
       ) : null}
 
       {fetchError && !isSubmitting ? (
-        <p className="sign-in-form__error">{fetchError}</p>
+        <p className="sign-up-form__error">{fetchError}</p>
       ) : null}
 
       <button
         type="submit"
-        className="sign-in-form__submit-button"
+        className="sign-up-form__submit-button"
         disabled={isSubmitting}
       >
         Register
