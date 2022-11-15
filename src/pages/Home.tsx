@@ -1,10 +1,14 @@
 import UserArticles from '../components/UserArticles';
+import useAuth from '../hooks/useAuth';
 
 export default function Home() {
-  // user placeholder context
-  const user = 'asd';
+  const { userToken, userInfo } = useAuth();
+  console.log(userToken);
+  console.log(userInfo);
 
   return (
-    <div>{user ? <UserArticles /> : <div>Welcome page place holder</div>}</div>
+    <div>
+      {userToken ? <UserArticles /> : <div>Welcome page place holder</div>}
+    </div>
   );
 }

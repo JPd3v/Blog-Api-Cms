@@ -1,0 +1,83 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --main-background-color: #111827;
+  --second-background-color: #1f2937;
+  --main-text-color: rgb(255, 255, 255);
+  --error-text-color: #bf0603;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-size: 1.6rem;
+  background: var(--main-background-color);
+  color: var(--main-text-color);
+}
+
+a {
+  text-decoration: none;
+  color: var(--main-text-color);
+}
+
+.App {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  height: 100vh;
+}
+
+.Navbar {
+  background: var(--second-background-color);
+  padding: 16px 80px;
+}
+
+.sign-in {
+  display: flex;
+  justify-content: center;
+  height: fit-content;
+  align-self: center;
+}
+
+.sign-in-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  background-color: var(--second-background-color);
+  width: 50%;
+  padding: 15px 0px;
+}
+
+.sign-in-form__title {
+  font-size: 2rem;
+  font-weight: 900;
+  margin-bottom: 15px;
+}
+
+.sign-in-form__label {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  text-align: end;
+  gap: 15px;
+}
+
+.sign-in-form__error {
+  color: var(--error-text-color);
+  font-weight: 600;
+}
+
+.sign-in-form__submit-button {
+  color: inherit;
+  padding: 5px 10px;
+  background: #004e98;
+  font-size: 1.8rem;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+}
