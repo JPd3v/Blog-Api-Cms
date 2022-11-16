@@ -8,6 +8,7 @@ import PageNotFound from './utils/PageNotFound';
 
 const Home = lazy(() => import('./pages/Home'));
 const SignUp = lazy(() => import('./pages/SignUp'));
+const LogIn = lazy(() => import('./pages/LogIn'));
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route element={<PageLayout />}>
             <Route path="/" element={<Home />} />
             <Route path="/sign-up" element={<SignUp />} />
+            <Route path="/log-in" element={<LogIn />} />
             <Route path="*" element={<PageNotFound />} />
           </Route>
         </Routes>
