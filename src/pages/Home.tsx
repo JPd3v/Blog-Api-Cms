@@ -2,9 +2,7 @@ import UserArticles from '../components/UserArticles';
 import useAuth from '../hooks/useAuth';
 
 export default function Home() {
-  const { userToken, userInfo } = useAuth();
-  console.log(userToken);
-  console.log(userInfo);
+  const { userToken } = useAuth();
 
   return (
     <div>

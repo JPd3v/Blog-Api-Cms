@@ -1,4 +1,10 @@
-import { createContext, useMemo, useState } from 'react';
+import {
+  createContext,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 
 interface AuthContextProviderProps {
   children: React.ReactNode;
@@ -28,6 +34,40 @@ export default function ContextProvider({
 }: AuthContextProviderProps) {
   const [userToken, setUserToken] = useState('');
   const [userInfo, setUserInfo] = useState<IUserInfo>(initialUSerInfo);
+
+  const verifyUser = useCallback(async () => {
+    const controller = new AbortController();
+    try {
+      const req = await fetch(
+        'https://blog-api-787a.onrender.com/user/refresh-token',
+        {
+          method: 'get',
+          credentials: 'include',
+          headers: { 'Content-Type': 'application/json' },
+          signal: controller.signal,
+        }
+      );
+
+      const response = await req.json();
+      setUserToken(response.token);
+      setUserInfo(response.userInfo);
+    } catch (error) {
+      if (!controller.signal.aborted) {
+        console.log(error);
+      }
+    }
+    setTimeout(verifyUser, 100000);
+    return () => {
+      controller?.abort();
+    };
+  }, [setUserToken]);
+
+  useEffect(
+    () => () => {
+      verifyUser();
+    },
+    [verifyUser]
+  );
 
   const value = useMemo(
     () => ({
