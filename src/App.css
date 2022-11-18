@@ -119,3 +119,11 @@ a {
   border: none;
   cursor: pointer;
 }
+
+.log-out-button {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: inherit;
+}
