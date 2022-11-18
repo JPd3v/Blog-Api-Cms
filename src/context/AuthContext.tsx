@@ -11,14 +11,16 @@ interface AuthContextProviderProps {
 }
 
 interface IAuthContext {
-  userToken?: string;
-  setUserToken?: React.Dispatch<React.SetStateAction<string>>;
+  userToken?: string | null | undefined;
+  setUserToken?: React.Dispatch<
+    React.SetStateAction<string | null | undefined>
+  >;
   userInfo?: IUserInfo;
   setUserInfo?: React.Dispatch<React.SetStateAction<IUserInfo>>;
 }
 
 interface IUserInfo {
-  name: string;
+  name: string | null;
   lastName: string;
 }
 
@@ -32,7 +34,7 @@ const AuthContext = createContext<IAuthContext>({});
 export default function ContextProvider({
   children,
 }: AuthContextProviderProps) {
-  const [userToken, setUserToken] = useState('');
+  const [userToken, setUserToken] = useState<null | string | undefined>(null);
   const [userInfo, setUserInfo] = useState<IUserInfo>(initialUSerInfo);
 
   const verifyUser = useCallback(async () => {
@@ -47,16 +49,22 @@ export default function ContextProvider({
           signal: controller.signal,
         }
       );
-
       const response = await req.json();
-      setUserToken(response.token);
-      setUserInfo(response.userInfo);
+
+      if (req.status === 200) {
+        setUserToken(response.token);
+        setUserInfo(response.userInfo);
+      } else {
+        setUserToken('');
+        setUserInfo({ name: '', lastName: '' });
+      }
     } catch (error) {
       if (!controller.signal.aborted) {
         console.log(error);
       }
     }
-    setTimeout(verifyUser, 100000);
+
+    setTimeout(verifyUser, 600000);
     return () => {
       controller?.abort();
     };
