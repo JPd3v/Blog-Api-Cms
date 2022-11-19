@@ -127,3 +127,42 @@ a {
   cursor: pointer;
   font-size: inherit;
 }
+
+.articles-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  padding: 35px;
+}
+
+.articles-container__article-preview {
+  background-color: var(--second-background-color);
+  height: 250px;
+  display: grid;
+  grid-template-rows: 1ch 1ch auto 1ch;
+  gap: 25px;
+  flex-direction: column;
+  padding: 24px 25px;
+  border-radius: 10px;
+}
+
+.article-preview a:hover {
+  color: #3b85fd;
+}
+
+.article-preview__title {
+  font-size: 2rem;
+  font-weight: 900;
+}
+
+.article-preview__state--published {
+  color: rgb(76, 252, 76);
+}
+
+.article-preview__state--not-published {
+  color: var(--error-text-color);
+}
+
+.article-preview__date {
+  justify-self: end;
+}
