@@ -5,6 +5,8 @@ import { Routes, Route } from 'react-router-dom';
 import LoadingPage from './utils/LoadingPage';
 import PageLayout from './utils/PageLayout';
 import PageNotFound from './utils/PageNotFound';
+import AuthGuard from './guard/AuthGuard';
+import LogedInAuth from './guard/LogedInAuth';
 
 const Home = lazy(() => import('./pages/Home'));
 const SignUp = lazy(() => import('./pages/SignUp'));
@@ -18,9 +20,13 @@ function App() {
         <Routes>
           <Route element={<PageLayout />}>
             <Route path="/" element={<Home />} />
-            <Route path="/sign-up" element={<SignUp />} />
-            <Route path="/log-in" element={<LogIn />} />
-            <Route path="/article/:id" element={<BlogArticle />} />
+            <Route element={<LogedInAuth />}>
+              <Route path="/sign-up" element={<SignUp />} />
+              <Route path="/log-in" element={<LogIn />} />
+            </Route>
+            <Route element={<AuthGuard />}>
+              <Route path="/article/:id" element={<BlogArticle />} />
+            </Route>
             <Route path="*" element={<PageNotFound />} />
           </Route>
         </Routes>
