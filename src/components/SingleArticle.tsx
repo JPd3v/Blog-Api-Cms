@@ -2,7 +2,10 @@ import { useState } from 'react';
 import { FiEdit } from 'react-icons/fi';
 import { ImCancelCircle } from 'react-icons/im';
 import { BsCheckLg } from 'react-icons/bs';
+import { useNavigate } from 'react-router-dom';
 import type { Article } from './UserArticles';
+import useAuth from '../hooks/useAuth';
+import LoadingSpinner from '../utils/LoadingSpinner';
 
 interface ComponentProps {
   article: Article;
@@ -15,6 +18,11 @@ export default function SingleArticle({ article }: ComponentProps) {
   const [editPrivacy, setEditPrivacy] = useState(false);
   const [editTitle, setEditTitle] = useState(false);
   const [editContent, setEditContent] = useState(false);
+  const [fetchError, setFetchError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+
+  const { userToken } = useAuth();
+  const navigate = useNavigate();
 
   const articleDate = new Date(article.published_date);
   const formatedArticleDate = articleDate.toLocaleDateString('en-US', {
@@ -22,6 +30,60 @@ export default function SingleArticle({ article }: ComponentProps) {
     month: 'long',
     day: 'numeric',
   });
+
+  function resetArticle() {
+    setArticlePrivacy(article.published);
+    setArticleTitle(article.title);
+    setArticleContent(article.content);
+  }
+
+  async function saveArticle() {
+    setIsLoading(true);
+    setFetchError('');
+    try {
+      const req = await fetch(`http://localhost:3000/articles/${article._id}`, {
+        method: 'put',
+        headers: {
+          Authorization: `bearer ${userToken}`,
+          'content-type': 'application/json',
+        },
+        body: JSON.stringify({
+          title: articleTitle,
+          content: articleContent,
+          published: articlePrivacy,
+        }),
+      });
+      const res = await req.json();
+      if (req.status === 200) {
+        navigate('/');
+      }
+      if (req.status === 403) {
+        console.log(res);
+        setFetchError(
+          'Only user creator of the article are allowed to edit it'
+        );
+      }
+    } catch (error) {
+      console.log(error);
+      setFetchError('Error saving your article, try again later');
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+  function sameArticleCheck() {
+    if (
+      (articlePrivacy === article.published &&
+        articleTitle === article.title &&
+        articleContent === article.content) ||
+      isLoading
+    ) {
+      return true;
+    }
+    return false;
+  }
+
+  const disablebutton = sameArticleCheck();
 
   return (
     <div className="article-content">
@@ -196,6 +258,27 @@ export default function SingleArticle({ article }: ComponentProps) {
             </button>
           )}
         </button>
+      </div>
+      <div className="article-content__article-save-controller article-save-controller">
+        <button
+          type="button"
+          onClick={resetArticle}
+          className="article-save-controller__button article-save-controller__button--reset"
+        >
+          Reset article
+        </button>
+        <button
+          type="button"
+          onClick={saveArticle}
+          className="article-save-controller__button article-save-controller__button--save"
+          disabled={disablebutton}
+        >
+          Save changes
+        </button>
+      </div>
+      <div className="article-content__error">
+        {isLoading && !fetchError ? <LoadingSpinner /> : null}
+        {!isLoading && fetchError ? <p>{fetchError}</p> : null}
       </div>
     </div>
   );

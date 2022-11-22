@@ -233,6 +233,41 @@ a {
   margin-left: 5px;
 }
 
+.article-content__article-save-controller {
+  display: flex;
+  justify-self: center;
+  gap: 15px;
+}
+
+.article-save-controller__button {
+  padding: 5px;
+  background: none;
+  color: white;
+  font-size: 1.7rem;
+  border-radius: 7px;
+  cursor: pointer;
+}
+
+.article-save-controller__button--reset {
+  color: var(--error-text-color);
+  border: 2px solid var(--error-text-color);
+}
+
+.article-save-controller__button--save {
+  background: #0054dd;
+  border: none;
+}
+
+.article-save-controller__button--save:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.article-content__error {
+  color: var(--error-text-color);
+  justify-self: center;
+}
+
 .article__comments-container {
   display: flex;
   flex-direction: column;
