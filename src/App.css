@@ -35,6 +35,21 @@ a {
 .Navbar {
   background: var(--second-background-color);
   padding: 16px 80px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.Navbar__right-side {
+  display: flex;
+  gap: 15px;
+}
+
+.Navbar__right-side a:hover {
+  color: #3b85fd;
+}
+
+.Navbar__right-side .log-out-button:hover {
+  color: var(--error-text-color);
 }
 
 .sign-up {

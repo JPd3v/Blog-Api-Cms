@@ -1,13 +1,27 @@
 import { Link } from 'react-router-dom';
+import useAuth from '../hooks/useAuth';
 import LogOutButton from './LogOutButton';
 
 export default function NavBar() {
+  const { userToken } = useAuth();
+
   return (
     <nav className="Navbar">
-      <Link to="/">Blog-Cms</Link>
-      <Link to="/log-in">Log in</Link>
-      <Link to="/sign-up">Sign up</Link>
-      <LogOutButton />
+      <div className="Navbar__left-side">
+        <Link to="/">Blog-Cms</Link>
+      </div>
+      {userToken ? (
+        <div className="Navbar__right-side">
+          <Link to="/">My articles</Link>
+          <Link to="/">Create article</Link>
+          <LogOutButton />
+        </div>
+      ) : (
+        <div className="Navbar__right-side">
+          <Link to="/log-in">Log in</Link>
+          <Link to="/sign-up">Sign up</Link>
+        </div>
+      )}
     </nav>
   );
 }
