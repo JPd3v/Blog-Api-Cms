@@ -41,18 +41,21 @@ export default function SingleArticle({ article }: ComponentProps) {
     setIsLoading(true);
     setFetchError('');
     try {
-      const req = await fetch(`http://localhost:3000/articles/${article._id}`, {
-        method: 'put',
-        headers: {
-          Authorization: `bearer ${userToken}`,
-          'content-type': 'application/json',
-        },
-        body: JSON.stringify({
-          title: articleTitle,
-          content: articleContent,
-          published: articlePrivacy,
-        }),
-      });
+      const req = await fetch(
+        `https://blog-api-787a.onrender.com/articles/${article._id}`,
+        {
+          method: 'put',
+          headers: {
+            Authorization: `bearer ${userToken}`,
+            'content-type': 'application/json',
+          },
+          body: JSON.stringify({
+            title: articleTitle,
+            content: articleContent,
+            published: articlePrivacy,
+          }),
+        }
+      );
       const res = await req.json();
       if (req.status === 200) {
         navigate('/');
