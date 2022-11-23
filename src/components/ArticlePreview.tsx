@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import DeleteArticleButton from './DeleteArticleButton';
 import type { Article } from './UserArticles';
 
 interface ComponentProps {
@@ -29,7 +30,18 @@ export default function ArticlePreview({ article }: ComponentProps) {
         {article.content}
       </Link>
 
-      <p className="article-preview__date">{articleDate}</p>
+      <p className="article-preview__date">
+        {articleDate === 'Invalid Date'
+          ? 'Article never was published'
+          : articleDate}
+      </p>
+
+      <div className="article-preview__delete-button">
+        <DeleteArticleButton
+          articleId={article._id}
+          articleTitle={article.title}
+        />
+      </div>
     </>
   );
 }

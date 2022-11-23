@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import type { Article } from './UserArticles';
 import useAuth from '../hooks/useAuth';
 import LoadingSpinner from '../utils/LoadingSpinner';
+import DeleteArticleButton from './DeleteArticleButton';
 
 interface ComponentProps {
   article: Article;
@@ -93,7 +94,12 @@ export default function SingleArticle({ article }: ComponentProps) {
       <p className="article-content__author">
         {article.author.first_name} {article.author.last_name}
       </p>
-
+      <div className="article-content__delete-button">
+        <DeleteArticleButton
+          articleId={article._id}
+          articleTitle={article.title}
+        />
+      </div>
       <div className="display-flex-wrap-gap10px">
         {!editPrivacy ? (
           <div>
