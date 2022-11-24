@@ -55,6 +55,48 @@ a {
   color: var(--error-text-color);
 }
 
+.hero {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.hero__hero-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.hero__hero-content p {
+  font-size: 3rem;
+  font-weight: 600;
+}
+
+.hero__hero-content-buttons {
+  margin-top: 50px;
+  display: flex;
+  gap: 15px;
+}
+
+.hero__hero-content-buttons a {
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.hero-content-buttons__sign-in {
+  color: rgb(255, 255, 255);
+  background: #004e98;
+}
+
+.hero-content-buttons__log-in {
+  color: rgb(255, 255, 255);
+  background: green;
+}
+
 .sign-up {
   display: flex;
   justify-content: center;
