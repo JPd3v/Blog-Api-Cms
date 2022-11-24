@@ -9,6 +9,7 @@
   --second-background-color: #1f2937;
   --main-text-color: rgb(255, 255, 255);
   --error-text-color: #bf0603;
+  --spinner-color: rgb(255, 255, 255);
 }
 
 html {
@@ -359,6 +360,10 @@ a {
   background-color: #0054dd;
 }
 
+.delete-article-modal__networ-status {
+  align-self: center;
+}
+
 .delete-article-modal__error-message {
   color: var(--error-text-color);
   font-size: 1.7rem;
@@ -473,6 +478,11 @@ a {
   font-weight: 600;
 }
 
+.new-article-form__post {
+  display: flex;
+  justify-content: center;
+}
+
 .new-article-form__submit {
   width: fit-content;
   align-self: center;
@@ -482,4 +492,36 @@ a {
   border: none;
   border-radius: 5px;
   cursor: pointer;
+}
+
+.page-loading-spinner {
+  position: fixed;
+  left: 50vw;
+  top: 50vh;
+  width: 36px;
+  height: 36px;
+}
+
+.loading-spinner {
+  width: 30px;
+  height: 30px;
+}
+
+.spinner {
+  border: 4px solid var(--spinner-color);
+  border-left-color: transparent;
+  width: 100%;
+  height: 100%;
+  animation: spin 1s linear infinite;
+  border-radius: 50%;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }

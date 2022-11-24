@@ -1,3 +1,7 @@
 export default function LoadingSpinner() {
-  return <div>LoadingSpinner place holder</div>;
+  return (
+    <div className="loading-spinner">
+      <div className="spinner" />
+    </div>
+  );
 }

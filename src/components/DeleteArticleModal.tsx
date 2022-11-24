@@ -76,10 +76,13 @@ export default function DeleteArticleModal({
             Delete article
           </button>
         </div>
-        {!isLoading && fetchError ? (
-          <p className="delete-article-modal__error-message">{fetchError}</p>
-        ) : null}
-        {isLoading && !fetchError ? <LoadingSpinner /> : null}
+        <div className="delete-article-modal__networ-status">
+          {!isLoading && fetchError ? (
+            <p className="delete-article-modal__error-message">{fetchError}</p>
+          ) : null}
+
+          {isLoading && !fetchError ? <LoadingSpinner /> : null}
+        </div>
       </div>
     </div>
   );

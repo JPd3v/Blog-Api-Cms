@@ -1,3 +1,7 @@
 export default function LoadingPage() {
-  return <div>Loading page...</div>;
+  return (
+    <div className="page-loading-spinner">
+      <div className="spinner" />
+    </div>
+  );
 }
