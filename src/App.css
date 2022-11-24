@@ -384,6 +384,7 @@ a {
   display: flex;
   flex-direction: column;
   gap: 20px;
+  position: relative;
 }
 
 .comment__header {
@@ -401,6 +402,31 @@ a {
   border: none;
   color: var(--main-text-color);
   cursor: pointer;
+}
+
+.comment__delete-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.comment__delete-button button {
+  background: none;
+  border: none;
+  color: var(--main-text-color);
+  cursor: pointer;
+}
+
+.comment__delete-button svg {
+  width: 30px;
+  height: 30px;
+}
+
+.comment__fetch-status {
+  align-self: center;
+}
+.comment__delete-error-message {
+  color: var(--error-text-color);
 }
 
 .delete-article-button svg {

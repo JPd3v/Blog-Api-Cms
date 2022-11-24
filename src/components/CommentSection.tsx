@@ -16,7 +16,7 @@ interface IComment {
 export type { IComment };
 
 export default function CommentSection({ articleId }: ComponentProps) {
-  const [comments, setComment] = useState<IComment[]>([]);
+  const [comments, setComments] = useState<IComment[]>([]);
   const [fetchError, setFetchError] = useState('');
   const [loading, setLoading] = useState(true);
 
@@ -29,7 +29,7 @@ export default function CommentSection({ articleId }: ComponentProps) {
           { signal: controller.signal }
         );
         const data = await response.json();
-        setComment(data);
+        setComments(data);
       } catch (error) {
         if (!controller.signal.aborted) {
           console.log(error);
@@ -44,6 +44,13 @@ export default function CommentSection({ articleId }: ComponentProps) {
       controller?.abort();
     };
   }, []);
+
+  function deleteComment(deletedComment: IComment) {
+    setComments((prevComments) =>
+      prevComments.filter((comment) => comment._id !== deletedComment._id)
+    );
+  }
+
   return (
     <div className="article__comments-container">
       {!fetchError && !loading ? (
@@ -52,7 +59,12 @@ export default function CommentSection({ articleId }: ComponentProps) {
             className="comments-container__comment comment"
             key={comment._id}
           >
-            <Comment comment={comment} />
+            <Comment
+              comment={comment}
+              handleCommentDeletion={(deletedComment) =>
+                deleteComment(deletedComment)
+              }
+            />
           </div>
         ))
       ) : (
