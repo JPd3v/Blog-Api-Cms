@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import LoadingSpinner from '../utils/LoadingSpinner';
 import Comment from './Comment';
 
 interface ComponentProps {
@@ -75,7 +76,7 @@ export default function CommentSection({ articleId }: ComponentProps) {
           The article has no comments
         </p>
       ) : null}
-      {!fetchError && loading ? <div>Loading comments...</div> : null}
+      {!fetchError && loading ? <LoadingSpinner /> : null}
     </div>
   );
 }

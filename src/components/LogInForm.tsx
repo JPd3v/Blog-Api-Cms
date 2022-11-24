@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';
+import LoadingSpinner from '../utils/LoadingSpinner';
 
 interface IFormValues {
   username?: string;
@@ -104,7 +105,7 @@ export default function LogInForm() {
         <p className="sign-up-form__error">{`${errors.password.message}`}</p>
       ) : null}
 
-      {isSubmitting ? <p>Loading...</p> : null}
+      {isSubmitting ? <LoadingSpinner /> : null}
       {fetchError ? <p className="sign-up-form__error">{fetchError}</p> : null}
       <button
         type="submit"
