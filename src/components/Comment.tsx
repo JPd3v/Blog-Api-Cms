@@ -25,7 +25,7 @@ export default function Comment({
     setFetchError('');
     try {
       const req = await fetch(
-        `http://localhost:3000/articles/${params.id}/comments/${comment._id}`,
+        `https://blog-api-787a.onrender.com/articles/${params.id}/comments/${comment._id}`,
         {
           method: 'delete',
           headers: {

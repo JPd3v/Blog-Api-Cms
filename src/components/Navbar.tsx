@@ -13,7 +13,7 @@ export default function NavBar() {
       {userToken ? (
         <div className="Navbar__right-side">
           <Link to="/">My articles</Link>
-          <Link to="/">Create article</Link>
+          <Link to="/article/new-article">Create article</Link>
           <LogOutButton />
         </div>
       ) : (

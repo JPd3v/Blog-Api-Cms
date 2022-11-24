@@ -7,6 +7,7 @@ import PageLayout from './utils/PageLayout';
 import PageNotFound from './utils/PageNotFound';
 import AuthGuard from './guard/AuthGuard';
 import LogedInAuth from './guard/LogedInAuth';
+import CreateArticle from './pages/CreateArticle';
 
 const Home = lazy(() => import('./pages/Home'));
 const SignUp = lazy(() => import('./pages/SignUp'));
@@ -25,6 +26,7 @@ function App() {
               <Route path="/log-in" element={<LogIn />} />
             </Route>
             <Route element={<AuthGuard />}>
+              <Route path="/article/new-article" element={<CreateArticle />} />
               <Route path="/article/:id" element={<BlogArticle />} />
             </Route>
             <Route path="*" element={<PageNotFound />} />
