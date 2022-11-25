@@ -70,12 +70,9 @@ export default function ContextProvider({
     };
   }, [setUserToken]);
 
-  useEffect(
-    () => () => {
-      verifyUser();
-    },
-    [verifyUser]
-  );
+  useEffect(() => {
+    verifyUser();
+  }, [verifyUser]);
 
   const value = useMemo(
     () => ({
