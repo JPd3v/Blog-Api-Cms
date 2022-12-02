@@ -14,9 +14,12 @@ export default function ArticlePreview({ article }: ComponentProps) {
 
   return (
     <>
-      <Link to={`/article/${article._id}`} className="article-preview__title">
-        {article.title}
-      </Link>
+      <h1>
+        <Link to={`/article/${article._id}`} className="article-preview__title">
+          {article.title}
+        </Link>
+      </h1>
+
       <p
         className={`article-preview__state ${
           article.published
@@ -26,14 +29,15 @@ export default function ArticlePreview({ article }: ComponentProps) {
       >
         {article.published ? 'Published' : 'Not Published'}
       </p>
-      <h1>
+
+      <p>
         <Link
           to={`/article/${article._id}`}
           className="article-preview__content"
         >
           {article.content}
         </Link>
-      </h1>
+      </p>
 
       <p className="article-preview__date">
         {articleDate === 'Invalid Date'
