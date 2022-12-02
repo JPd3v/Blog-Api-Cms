@@ -26,9 +26,14 @@ export default function ArticlePreview({ article }: ComponentProps) {
       >
         {article.published ? 'Published' : 'Not Published'}
       </p>
-      <Link to={`/article/${article._id}`} className="article-preview__content">
-        {article.content}
-      </Link>
+      <h1>
+        <Link
+          to={`/article/${article._id}`}
+          className="article-preview__content"
+        >
+          {article.content}
+        </Link>
+      </h1>
 
       <p className="article-preview__date">
         {articleDate === 'Invalid Date'

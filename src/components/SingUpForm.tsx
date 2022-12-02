@@ -66,10 +66,12 @@ export default function SingInForm() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} noValidate className="sign-up-form">
-      <p className="sign-up-form__title">Create Account</p>
+      <h1 className="sign-up-form__title">Create Account</h1>
       <label htmlFor="first_name" className="sign-up-form__label">
         First Name:
         <input
+          aria-invalid={errors.first_name ? 'true' : 'false'}
+          aria-describedby="first-name-error"
           type="text"
           id="first_name"
           {...register('first_name', {
@@ -79,12 +81,17 @@ export default function SingInForm() {
       </label>
 
       {errors.first_name ? (
-        <p className="sign-up-form__error">{`${errors.first_name.message}`}</p>
+        <p
+          className="sign-up-form__error"
+          id="first-name-error"
+        >{`${errors.first_name.message}`}</p>
       ) : null}
 
       <label htmlFor="last_name" className="sign-up-form__label">
         Last Name:
         <input
+          aria-invalid={errors.last_name ? 'true' : 'false'}
+          aria-describedby="last-name-error"
           type="text"
           id="last_name"
           {...register('last_name', {
@@ -94,12 +101,17 @@ export default function SingInForm() {
       </label>
 
       {errors.last_name ? (
-        <p className="sign-up-form__error">{`${errors.last_name.message}`}</p>
+        <p
+          className="sign-up-form__error"
+          id="last-name-error"
+        >{`${errors.last_name.message}`}</p>
       ) : null}
 
       <label htmlFor="username" className="sign-up-form__label">
         Email:
         <input
+          aria-invalid={errors.username ? 'true' : 'false'}
+          aria-describedby="e-mail-error"
           type="email"
           id="username"
           {...register('username', {
@@ -113,12 +125,17 @@ export default function SingInForm() {
       </label>
 
       {errors.username ? (
-        <p className="sign-up-form__error">{`${errors.username.message}`}</p>
+        <p
+          className="sign-up-form__error"
+          id="e-mail-error"
+        >{`${errors.username.message}`}</p>
       ) : null}
 
       <label htmlFor="password" className="sign-up-form__label">
         Password:
         <input
+          aria-invalid={errors.password ? 'true' : 'false'}
+          aria-describedby="password-error"
           type="password"
           id="password"
           {...register('password', {
@@ -132,12 +149,17 @@ export default function SingInForm() {
       </label>
 
       {errors.password ? (
-        <p className="sign-up-form__error">{`${errors.password.message}`}</p>
+        <p
+          className="sign-up-form__error"
+          id="password-error"
+        >{`${errors.password.message}`}</p>
       ) : null}
 
       <label htmlFor="confirm_password" className="sign-up-form__label">
         Confirm Password:
         <input
+          aria-invalid={errors.confirm_password ? 'true' : 'false'}
+          aria-describedby="confirm-password-error"
           type="password"
           id="confirm_password"
           {...register('confirm_password', {
@@ -149,13 +171,15 @@ export default function SingInForm() {
 
       {watch('confirm_password') !== watch('password') &&
       getValues('confirm_password') ? (
-        <p className="sign-up-form__error">
+        <p className="sign-up-form__error" id="confirm-password-error">
           Password and Confirm Password fields should match
         </p>
       ) : null}
 
       {fetchError && !isSubmitting ? (
-        <p className="sign-up-form__error">{fetchError}</p>
+        <p className="sign-up-form__error" role="alert">
+          {fetchError}
+        </p>
       ) : null}
 
       {isSubmitting && !fetchError ? <LoadingSpinner /> : null}

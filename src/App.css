@@ -8,8 +8,9 @@
   --main-background-color: #111827;
   --second-background-color: #1f2937;
   --main-text-color: rgb(255, 255, 255);
-  --error-text-color: #bf0603;
+  --error-text-color: #ff524f;
   --spinner-color: rgb(255, 255, 255);
+  --btn-delete-color: #d63a37;
 }
 
 html {
@@ -48,7 +49,7 @@ a {
 }
 
 .Navbar__right-side a:hover {
-  color: #3b85fd;
+  color: #488eff;
 }
 
 .Navbar__right-side .log-out-button:hover {
@@ -102,6 +103,7 @@ a {
   justify-content: center;
   height: fit-content;
   align-self: center;
+  padding: 4vh;
 }
 
 .sign-up-form {
@@ -110,8 +112,9 @@ a {
   align-items: center;
   gap: 15px;
   background-color: var(--second-background-color);
-  width: 37%;
-  padding: 15px 0px;
+  width: 35%;
+  min-width: fit-content;
+  padding: 15px 20px;
 }
 
 .sign-up-form__title {
@@ -129,6 +132,8 @@ a {
 .sign-up-form__error {
   color: var(--error-text-color);
   font-weight: 600;
+  text-align: center;
+  width: 60%;
 }
 
 .sign-up-form__submit-button {
@@ -146,6 +151,7 @@ a {
   justify-content: center;
   height: fit-content;
   align-self: center;
+  padding: 4vh;
 }
 
 .log-in-form {
@@ -155,7 +161,8 @@ a {
   gap: 15px;
   background-color: var(--second-background-color);
   width: 25%;
-  padding: 15px 0px;
+  padding: 15px 15px;
+  min-width: fit-content;
 }
 
 .log-in-form__label {
@@ -238,6 +245,11 @@ a {
   padding: 15px;
   cursor: pointer;
   border-radius: 10px;
+}
+
+.article-preview__content {
+  font-size: 1.6rem;
+  font-weight: 200;
 }
 
 .article-preview__date {
@@ -366,6 +378,7 @@ a {
   justify-content: center;
   padding: 5%;
   gap: 30px;
+  align-items: center;
 }
 
 .delete-article-modal__message {
@@ -395,7 +408,7 @@ a {
 }
 
 .modal-buttons--cancel {
-  background: var(--error-text-color);
+  background: var(--btn-delete-color);
 }
 
 .modal-buttons--delete-article {
@@ -451,6 +464,14 @@ a {
   cursor: pointer;
 }
 
+.delete-article-button:hover::before,
+.delete-article-button:focus::before {
+  content: 'Delete Article';
+  top: 20%;
+  transform: translateX(-100%);
+  position: absolute;
+  width: 11ch;
+}
 .comment__delete-button {
   position: absolute;
   top: 10px;
@@ -462,6 +483,15 @@ a {
   border: none;
   color: var(--main-text-color);
   cursor: pointer;
+}
+
+.comment__delete-button button:hover::before,
+.comment__delete-button button:focus::before {
+  content: 'Delete Article';
+  top: 20%;
+  transform: translateX(-100%);
+  position: absolute;
+  width: 11ch;
 }
 
 .comment__delete-button svg {
@@ -493,7 +523,7 @@ a {
   width: fit-content;
   background: var(--second-background-color);
   padding: 30px;
-  gap: 15px;
+  gap: 30px;
   border-radius: 10px;
 }
 
@@ -566,4 +596,28 @@ a {
   100% {
     transform: rotate(360deg);
   }
+}
+
+.checkboxprivacity {
+  opacity: 0;
+}
+
+.checkboxprivacity + span::after {
+  content: 'unpublished';
+  color: var(--error-text-color);
+  background: var(--main-background-color);
+  border: none;
+  padding: 15px;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+.checkboxprivacity:checked + span::after {
+  content: 'published';
+  color: rgb(76, 252, 76);
+  background: var(--main-background-color);
+  border: none;
+  padding: 15px;
+  cursor: pointer;
+  border-radius: 10px;
 }

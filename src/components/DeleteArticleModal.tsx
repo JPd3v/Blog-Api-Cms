@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import FocusLock from 'react-focus-lock';
 import useAuth from '../hooks/useAuth';
 import LoadingSpinner from '../utils/LoadingSpinner';
 
@@ -53,37 +54,41 @@ export default function DeleteArticleModal({
   }
 
   return (
-    <div className="delete-article-modal">
-      <div className="delete-article-modal__content">
-        <p className="delete-article-modal__message">
-          Are your sure to delete{' '}
-          <span className="message__highlighted">{articleTitle}</span>? this
-          action is irreversible
-        </p>
-        <div className="delete-article-modal__modal-buttons modal-buttons">
-          <button
-            type="button"
-            className="modal-buttons modal-buttons--cancel"
-            onClick={() => closeModal()}
-          >
-            Cancel
-          </button>
-          <button
-            type="button"
-            className="modal-buttons modal-buttons--delete-article"
-            onClick={deleteArticle}
-          >
-            Delete article
-          </button>
-        </div>
-        <div className="delete-article-modal__networ-status">
-          {!isLoading && fetchError ? (
-            <p className="delete-article-modal__error-message">{fetchError}</p>
-          ) : null}
+    <FocusLock>
+      <div className="delete-article-modal">
+        <div className="delete-article-modal__content">
+          <p className="delete-article-modal__message" role="alert">
+            Are your sure to delete{' '}
+            <span className="message__highlighted">{articleTitle}</span>? this
+            action is irreversible
+          </p>
+          <div className="delete-article-modal__modal-buttons modal-buttons">
+            <button
+              type="button"
+              className="modal-buttons modal-buttons--cancel"
+              onClick={() => closeModal()}
+            >
+              Cancel
+            </button>
+            <button
+              type="button"
+              className="modal-buttons modal-buttons--delete-article"
+              onClick={deleteArticle}
+            >
+              Delete article
+            </button>
+          </div>
+          <div className="delete-article-modal__networ-status">
+            {!isLoading && fetchError ? (
+              <p className="delete-article-modal__error-message">
+                {fetchError}
+              </p>
+            ) : null}
 
-          {isLoading && !fetchError ? <LoadingSpinner /> : null}
+            {isLoading && !fetchError ? <LoadingSpinner /> : null}
+          </div>
         </div>
       </div>
-    </div>
+    </FocusLock>
   );
 }

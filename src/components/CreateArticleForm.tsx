@@ -6,7 +6,6 @@ import useAuth from '../hooks/useAuth';
 import LoadingSpinner from '../utils/LoadingSpinner';
 
 export default function CreateArticleForm() {
-  const [articlePrivacy, setArticlePrivacy] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [fetchError, setFetchError] = useState('');
   const { userToken } = useAuth();
@@ -31,12 +30,17 @@ export default function CreateArticleForm() {
         body: JSON.stringify({
           title: data.title,
           content: data.content,
-          published: articlePrivacy,
+          published: data.published,
         }),
       });
 
       if (req.status === 200) {
         navigate('/');
+        return;
+      }
+
+      if (req.status === 403) {
+        setFetchError('New article title or content cant be empty');
         return;
       }
 
@@ -56,44 +60,55 @@ export default function CreateArticleForm() {
       onSubmit={handleSubmit(formsubmit)}
       className="new-article-form"
     >
+      <h1>New Article</h1>
       <label htmlFor="title" className="new-article-form__label">
         Title
         <input
+          aria-labelledby="title-error"
           id="title"
           {...register('title', { required: 'Title are required' })}
         />
       </label>
       {errors.title && (
-        <p className="new-article-form__error-message">{`${errors.title.message}`}</p>
+        <p
+          className="new-article-form__error-message"
+          id="title-error"
+        >{`${errors.title.message}`}</p>
       )}
 
       <div className="new-article-form__privacy-wrapper">
-        <p>Privacy</p>
-        <button
-          type="button"
-          className={`article-content__privacy-edit-button ${
-            articlePrivacy
-              ? 'article-content__state--published'
-              : 'article-content__state--not-published'
-          }`}
-          onClick={() => {
-            setArticlePrivacy((prev) => !prev);
-          }}
-        >
-          {articlePrivacy ? 'Published' : 'Not Published'}
-        </button>
+        <label htmlFor="checkboxprivacity">
+          privacy
+          <input
+            {...register('published')}
+            type="checkbox"
+            className="checkboxprivacity"
+            id="checkboxprivacity"
+          />
+          <span />
+        </label>
       </div>
 
       <label htmlFor="content" className="new-article-form__label">
         Content
         <textarea
+          aria-labelledby="content-error"
           className="new-article-form__content"
           id="content"
-          {...register('content', { required: 'Content are required' })}
+          {...register('content', {
+            required: 'Content are required',
+            validate: {
+              empty: (value) =>
+                value.trim().length > 0 || 'content cant be empty',
+            },
+          })}
         />
       </label>
       {errors.content && (
-        <p className="new-article-form__error-message">{`${errors.content.message}`}</p>
+        <p
+          className="new-article-form__error-message"
+          id="content-error"
+        >{`${errors.content.message}`}</p>
       )}
 
       <button type="submit" className="new-article-form__submit">
@@ -102,7 +117,9 @@ export default function CreateArticleForm() {
       <div className="new-article-form__post">
         {isLoading && !fetchError ? <LoadingSpinner /> : null}
         {fetchError && !isLoading ? (
-          <p className="comment__delete-error-message">{fetchError}</p>
+          <p className="comment__delete-error-message" role="alert">
+            {fetchError}
+          </p>
         ) : null}
       </div>
     </form>

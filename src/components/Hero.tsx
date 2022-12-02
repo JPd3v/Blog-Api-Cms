@@ -4,8 +4,8 @@ export default function Hero() {
   return (
     <div className="hero">
       <div className="hero__hero-content">
-        <p>Everyone have something to say...</p>
-        <p>Start writing blog articles with us</p>
+        <h1>Everyone have something to say...</h1>
+        <h1>Start writing blog articles with us</h1>
         <div className="hero__hero-content-buttons hero-content-buttons">
           <Link className="hero-content-buttons__sign-in" to="/sign-up">
             Sign up

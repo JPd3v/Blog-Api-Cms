@@ -48,7 +48,7 @@ export default function BlogArticle() {
     };
   }, []);
   return (
-    <div className="article">
+    <main className="article">
       {!fetchError && !loading && article._id ? (
         <>
           <SingleArticle article={article} />
@@ -61,6 +61,6 @@ export default function BlogArticle() {
         </div>
       )}
       {!fetchError && loading ? <LoadingPage /> : null}
-    </div>
+    </main>
   );
 }

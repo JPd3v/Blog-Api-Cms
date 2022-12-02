@@ -5,5 +5,5 @@ import useAuth from '../hooks/useAuth';
 export default function Home() {
   const { userToken } = useAuth();
 
-  return <div>{userToken ? <UserArticles /> : <Hero />}</div>;
+  return <main>{userToken ? <UserArticles /> : <Hero />}</main>;
 }

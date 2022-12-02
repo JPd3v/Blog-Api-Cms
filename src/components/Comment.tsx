@@ -70,14 +70,20 @@ export default function Comment({
       </div>
       <p className="comment__text">{comment.comment}</p>
       <div className="comment__delete-button">
-        <button type="button" onClick={() => deleteComment()}>
+        <button
+          type="button"
+          aria-label="Delete comment"
+          onClick={() => deleteComment()}
+        >
           <MdOutlineDeleteForever />
         </button>
       </div>
       <div className="comment__fetch-status">
         {isLoading && !fetchError ? <LoadingSpinner /> : null}
         {fetchError && !isLoading ? (
-          <p className="comment__delete-error-message">{fetchError}</p>
+          <p className="comment__delete-error-message" role="alert">
+            {fetchError}
+          </p>
         ) : null}
       </div>
     </>

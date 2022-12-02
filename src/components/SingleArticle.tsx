@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-autofocus */
 import { useState } from 'react';
 import { FiEdit } from 'react-icons/fi';
 import { ImCancelCircle } from 'react-icons/im';
@@ -61,11 +62,15 @@ export default function SingleArticle({ article }: ComponentProps) {
       if (req.status === 200) {
         navigate('/');
       }
-      if (req.status === 403) {
+      if (req.status === 401) {
         console.log(res);
         setFetchError(
           'Only user creator of the article are allowed to edit it'
         );
+      }
+      if (req.status === 403) {
+        console.log(res);
+        setFetchError('Article new content or title cant be empty');
       }
     } catch (error) {
       console.log(error);
@@ -103,7 +108,7 @@ export default function SingleArticle({ article }: ComponentProps) {
       <div className="display-flex-wrap-gap10px">
         {!editPrivacy ? (
           <div>
-            Privacy state:
+            <p>Privacy state:</p>
             <p
               className={`article-content__state ${
                 articlePrivacy
@@ -116,23 +121,22 @@ export default function SingleArticle({ article }: ComponentProps) {
           </div>
         ) : (
           <div>
-            <label htmlFor="title">
-              <button
-                type="button"
-                className={`article-content__privacy-edit-button ${
-                  articlePrivacy
-                    ? 'article-content__state--published'
-                    : 'article-content__state--not-published'
-                }`}
-                onClick={() => {
-                  setArticlePrivacy((prev) => !prev);
-                }}
-              >
-                {articlePrivacy ? 'Published' : 'Not Published'}
-              </button>
+            <label htmlFor="checkboxprivacity">
+              New privacy state
+              <input
+                autoFocus
+                type="checkbox"
+                name="privacy"
+                className="checkboxprivacity"
+                id="checkboxprivacity"
+                checked={articlePrivacy}
+                onChange={() => setArticlePrivacy((prev) => !prev)}
+              />
+              <span />
             </label>
 
             <button
+              aria-label="save privacy changes"
               type="button"
               className="article-content__checkButton"
               onClick={() => setEditPrivacy((prev) => !prev)}
@@ -142,25 +146,30 @@ export default function SingleArticle({ article }: ComponentProps) {
           </div>
         )}
 
-        <button
-          type="button"
-          className="article-content__editButton"
-          onClick={() => setEditPrivacy((prev) => !prev)}
-        >
+        <div>
           {!editPrivacy ? (
-            <FiEdit />
+            <button
+              aria-label="edit privacy"
+              type="button"
+              className="article-content__editButton"
+              onClick={() => setEditPrivacy((prev) => !prev)}
+            >
+              <FiEdit />
+            </button>
           ) : (
             <button
+              aria-label="cancel edit privacy"
               type="button"
               onClick={() => {
                 setArticlePrivacy(article.published);
+                setEditPrivacy((prev) => !prev);
               }}
               className="article-content__editButton"
             >
               <ImCancelCircle />
             </button>
           )}
-        </button>
+        </div>
       </div>
 
       <p className="article-content__date">
@@ -172,12 +181,13 @@ export default function SingleArticle({ article }: ComponentProps) {
 
       <div className="display-flex-wrap-gap10px">
         {!editTitle ? (
-          <p className="article-content__title">Title: {articleTitle}</p>
+          <h1 className="article-content__title">Title: {articleTitle}</h1>
         ) : (
           <div>
             <label htmlFor="title">
-              <p className="article-content__title">New title</p>
+              <h1 className="article-content__title">New title</h1>
               <input
+                autoFocus
                 type="text"
                 id="title"
                 value={articleTitle}
@@ -186,6 +196,7 @@ export default function SingleArticle({ article }: ComponentProps) {
             </label>
 
             <button
+              aria-label="save title changes"
               type="button"
               className="article-content__checkButton"
               onClick={() => setEditTitle((prev) => !prev)}
@@ -195,40 +206,46 @@ export default function SingleArticle({ article }: ComponentProps) {
           </div>
         )}
 
-        <button
-          type="button"
-          className="article-content__editButton"
-          onClick={() => {
-            setEditTitle((prev) => !prev);
-          }}
-        >
+        <div>
           {!editTitle ? (
-            <FiEdit />
+            <button
+              aria-label="edit title"
+              type="button"
+              className="article-content__editButton"
+              onClick={() => {
+                setEditTitle((prev) => !prev);
+              }}
+            >
+              <FiEdit />
+            </button>
           ) : (
             <button
+              aria-label="cancel edit title"
               type="button"
               onClick={() => {
                 setArticleTitle(article.title);
+                setEditTitle((prev) => !prev);
               }}
               className="article-content__editButton"
             >
               <ImCancelCircle />
             </button>
           )}
-        </button>
+        </div>
       </div>
 
       <div className="display-flex-wrap-gap10px">
         {!editContent ? (
           <div className="article-content__content">
             <p className="article-content__title">Article content:</p>{' '}
-            {articleContent}
+            <p>{articleContent}</p>
           </div>
         ) : (
           <div>
             <label htmlFor="content">
               <p className="article-content__title">New article content:</p>
               <textarea
+                autoFocus
                 id="content"
                 value={articleContent}
                 onChange={(e) => setArticleContent(e.target.value)}
@@ -236,6 +253,7 @@ export default function SingleArticle({ article }: ComponentProps) {
             </label>
 
             <button
+              aria-label="save content changes"
               type="button"
               className="article-content__checkButton"
               value={article.content}
@@ -246,27 +264,33 @@ export default function SingleArticle({ article }: ComponentProps) {
           </div>
         )}
 
-        <button
-          type="button"
-          className="article-content__editButton"
-          onClick={() => {
-            setEditContent((prev) => !prev);
-          }}
-        >
+        <div>
           {!editContent ? (
-            <FiEdit />
+            <button
+              aria-label="edit content"
+              type="button"
+              className="article-content__editButton"
+              onClick={() => {
+                setEditContent((prev) => !prev);
+              }}
+            >
+              {' '}
+              <FiEdit />
+            </button>
           ) : (
             <button
+              aria-label="cancel edit content"
               type="button"
               onClick={() => {
                 setArticleContent(article.content);
+                setEditContent((prev) => !prev);
               }}
               className="article-content__editButton"
             >
               <ImCancelCircle />
             </button>
           )}
-        </button>
+        </div>
       </div>
       <div className="article-content__article-save-controller article-save-controller">
         <button
@@ -287,7 +311,7 @@ export default function SingleArticle({ article }: ComponentProps) {
       </div>
       <div className="article-content__error">
         {isLoading && !fetchError ? <LoadingSpinner /> : null}
-        {!isLoading && fetchError ? <p>{fetchError}</p> : null}
+        {!isLoading && fetchError ? <p role="alert">{fetchError}</p> : null}
       </div>
     </div>
   );

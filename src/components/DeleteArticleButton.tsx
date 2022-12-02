@@ -20,6 +20,7 @@ export default function DeleteArticleButton({
   return (
     <>
       <button
+        aria-label="delete article"
         type="button"
         className="delete-article-button"
         onClick={() => setShowModal((prev) => !prev)}

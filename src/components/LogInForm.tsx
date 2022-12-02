@@ -66,10 +66,12 @@ export default function LogInForm() {
 
   return (
     <form noValidate onSubmit={handleSubmit(onSubmit)} className="log-in-form">
-      <p className="log-in-form__title">Log In</p>
+      <h1 className="log-in-form__title">Log In</h1>
       <label htmlFor="username" className="log-in-form__label">
         Email:
         <input
+          aria-invalid={errors.username ? 'true' : 'false'}
+          aria-labelledby="email-error"
           type="email"
           id="username"
           {...register('username', {
@@ -83,12 +85,17 @@ export default function LogInForm() {
       </label>
 
       {errors.username ? (
-        <p className="sign-up-form__error">{`${errors.username.message}`}</p>
+        <p
+          className="sign-up-form__error"
+          id="email-error"
+        >{`${errors.username.message}`}</p>
       ) : null}
 
       <label htmlFor="Password" className="log-in-form__label">
         Password:
         <input
+          aria-invalid={errors.password ? 'true' : 'false'}
+          aria-labelledby="password-error"
           type="password"
           id="Password"
           {...register('password', {
@@ -102,11 +109,18 @@ export default function LogInForm() {
       </label>
 
       {errors.password ? (
-        <p className="sign-up-form__error">{`${errors.password.message}`}</p>
+        <p
+          className="sign-up-form__error"
+          id="password-error"
+        >{`${errors.password.message}`}</p>
       ) : null}
 
       {isSubmitting ? <LoadingSpinner /> : null}
-      {fetchError ? <p className="sign-up-form__error">{fetchError}</p> : null}
+      {fetchError ? (
+        <p className="sign-up-form__error" role="alert">
+          {fetchError}
+        </p>
+      ) : null}
       <button
         type="submit"
         className="log-in-form__submit-button"
