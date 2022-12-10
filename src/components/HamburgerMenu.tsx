@@ -6,11 +6,6 @@ interface Props {
   handleClick: () => void;
 }
 
-// interface Iasd{
-//   ref: React.MutableRefObject<null>;
-//   closeMenu: () => void;
-// }
-
 function closeMenu(ref: React.MutableRefObject<any>, callBack: () => void) {
   useEffect(() => {
     function handleCloseMenu(event: MouseEvent) {
@@ -35,8 +30,11 @@ export default function HamburgerMenu({ children, handleClick }: Props) {
   closeMenu(hamburgerMenuRef, handleClick);
 
   return (
-    <div className="hamburger-menu">
-      <div className="hamburger-menu__content" ref={hamburgerMenuRef}>
+    <div className="hamburger-menu .menu-open">
+      <div
+        className="hamburger-menu__content hamburger-menu__content--menu-open"
+        ref={hamburgerMenuRef}
+      >
         {children}
         <button
           type="button"
