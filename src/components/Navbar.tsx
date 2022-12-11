@@ -4,13 +4,18 @@ import useAuth from '../hooks/useAuth';
 import LogOutButton from './LogOutButton';
 import HamburgerMenu from './HamburgerMenu';
 import ButtonHamburguerMenu from './ButtonHamburguerMenu';
+import useMountTransition from '../hooks/useMountTransition';
 
 export default function NavBar() {
   const [isOpen, setIsOpen] = useState(false);
   const { userToken } = useAuth();
+  const hasTransitionedIn = useMountTransition(isOpen, 600);
 
-  function handleclick() {
-    setIsOpen((prev) => !prev);
+  function handleOpenMEnu() {
+    setIsOpen(true);
+  }
+  function handleCloseMEnu() {
+    setIsOpen(false);
   }
 
   return (
@@ -26,16 +31,19 @@ export default function NavBar() {
             <LogOutButton />
           </div>
           <ButtonHamburguerMenu
-            handleClick={() => handleclick()}
+            handleClick={() => handleOpenMEnu()}
             isOpen={isOpen}
           />
-          {isOpen ? (
-            <HamburgerMenu handleClick={() => handleclick()}>
+          {(hasTransitionedIn || isOpen) && (
+            <HamburgerMenu
+              handleClick={() => handleCloseMEnu()}
+              isOpen={isOpen}
+            >
               <Link to="/">My articles</Link>
               <Link to="/article/new-article">Create article</Link>
               <LogOutButton />
             </HamburgerMenu>
-          ) : null}
+          )}
         </>
       ) : (
         <>
@@ -44,15 +52,18 @@ export default function NavBar() {
             <Link to="/sign-up">Sign up</Link>
           </div>
           <ButtonHamburguerMenu
-            handleClick={() => handleclick()}
+            handleClick={() => handleOpenMEnu()}
             isOpen={isOpen}
           />
-          {isOpen ? (
-            <HamburgerMenu handleClick={() => handleclick()}>
+          {(isOpen || hasTransitionedIn) && (
+            <HamburgerMenu
+              handleClick={() => handleCloseMEnu()}
+              isOpen={isOpen}
+            >
               <Link to="/log-in">Log in</Link>
               <Link to="/sign-up">Sign up</Link>
             </HamburgerMenu>
-          ) : null}
+          )}
         </>
       )}
     </nav>

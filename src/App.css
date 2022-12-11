@@ -456,6 +456,7 @@ a {
   border: 2px solid #4d4ccf;
   border-radius: 5px;
   width: 50%;
+  min-width: 220px;
   padding: 20px;
   display: flex;
   flex-direction: column;
@@ -466,6 +467,7 @@ a {
 .comment__header {
   display: flex;
   gap: 10px;
+  flex-wrap: wrap;
 }
 
 .comments-container__not-comments {
@@ -655,6 +657,13 @@ a {
   width: 100%;
   height: 100%;
   z-index: 1000;
+  opacity: 0;
+
+  transition: opacity 0.6s ease-in-out;
+}
+
+.hamburger-menu--open {
+  opacity: 1;
 }
 
 .hamburger-button svg {
@@ -671,6 +680,12 @@ a {
   padding-top: 80px;
   gap: 15px;
   position: relative;
+  transform: translateY(100%);
+  transition: transform 0.3s ease-in-out;
+}
+
+.hamburger-menu__content--menu-open {
+  transform: translateY(0px);
 }
 
 .hamburger-menu__close-button {
@@ -704,6 +719,7 @@ a {
     top: 0;
     right: 0;
   }
+
   .Navbar {
     padding: 10px 35px;
     justify-content: space-between;
